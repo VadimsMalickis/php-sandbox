@@ -1,10 +1,8 @@
 <?php
 
+use App\Request;
+
 include "vendor/autoload.php";
 
-use App\Router;
-
-$router = new Router();
-
-$router->route();
+$request = new Request;
 
