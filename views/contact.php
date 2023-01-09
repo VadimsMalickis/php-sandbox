@@ -15,7 +15,7 @@
     <?php include "header.php"; ?>
   </header>
   <main>
-    <form action="/sandbox/contact.php" method="post">
+    <form action="" method="post">
       <label for="text">
         <input id="text" type="text" placeholder="text input" name="vards">
       </label>
