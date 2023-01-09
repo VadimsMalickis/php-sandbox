@@ -18,7 +18,7 @@
   <main>
 
     <?php
-    echo $content;
+    // echo $content;
     ?>
 
   </main>

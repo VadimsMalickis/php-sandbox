@@ -4,7 +4,8 @@
     "type": "project",
     "require": {
         "php": ">=7.0",
-      "ext-pdo": "*"
+      "ext-pdo": "*",
+        "symfony/http-foundation": "6.3.x-dev"
     },
     "authors": [
         {

@@ -41,8 +41,11 @@
 
     ?>
   </main>
-  <footer>
-    <?php include "footer.php"; ?>
+  <footer class="footer">
+    <hr>
+    <div>
+      <h4>Footer 2022!</h4>
+    </div>
   </footer>
 </body>
 
