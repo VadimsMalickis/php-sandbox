@@ -6,7 +6,8 @@
         "php": ">=7.0",
       "ext-pdo": "*",
         "symfony/http-foundation": "6.3.x-dev",
-        "symfony/routing": "6.3.x-dev"
+        "symfony/routing": "6.3.x-dev",
+        "symfony/http-kernel": "6.3.x-dev"
     },
     "authors": [
         {
