@@ -21,8 +21,14 @@ class Application
     public static function renderTemplate($templateFile, Request $request): Response
     {
         extract($request->attributes->all(), EXTR_SKIP);
+
         ob_start();
         require sprintf(__DIR__ . '/../views/%s', $templateFile);
-        return new Response(ob_get_clean());
+        $view = ob_get_clean();
+        ob_start();
+        require __DIR__.'/../views/main.php';
+        $main = ob_get_clean();
+
+        return new Response(str_replace('{{ content }}', $view, $main));
     }
 }
