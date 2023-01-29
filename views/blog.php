@@ -2,7 +2,7 @@
 
 <body>
 <header>
-    <?php require __DIR__.'/inc/header.php.php'; ?>
+    <?php require __DIR__.'/inc/header.php'; ?>
 </header>
     <main>
         My blog page
