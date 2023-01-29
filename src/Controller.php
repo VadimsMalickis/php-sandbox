@@ -7,8 +7,8 @@ use Symfony\Component\HttpFoundation\Response;
 
 class Controller {
 
-    public function homeAction(Request $request): Response
+    public function homeAction(Request $request, $name, $age): Response
     {
-        return Application::renderTemplate($request);
+        return Application::renderTemplate('home.php', $request);
     }
 }

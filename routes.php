@@ -8,9 +8,10 @@ require_once __DIR__ .  "/vendor/autoload.php";
 
 $routes = new RouteCollection();
 
-$routes->add('home', new Route('/{name}', [
+$routes->add('home', new Route('/{name}/{age}', [
     'name' => 'User',
-    '_controller' => [new \App\Controller(), 'homeAction']
+    'age' => 'unknown',
+    '_controller' => [\App\Controller::class, 'homeAction']
 ]));
 
 $routes->add('blog', new Route('/blog'));

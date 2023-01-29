@@ -20,6 +20,7 @@
     "require": {
         "php" : ">=7.4",
         "symfony/routing": "6.3.x-dev",
-        "symfony/http-foundation": "*"
+        "symfony/http-foundation": "*",
+        "symfony/http-kernel": "6.3.x-dev"
     }
 }
