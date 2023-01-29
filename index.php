@@ -2,27 +2,36 @@
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Exception\ResourceNotFoundException;
+use Symfony\Component\Routing\Matcher\UrlMatcher;
+use Symfony\Component\Routing\RequestContext;
 
 require_once __DIR__ .  "/vendor/autoload.php";
 
-if (preg_match('/\.(?:png|jpg|jpeg|gif)$/', $_SERVER["REQUEST_URI"])) {
-    return false;    // serve the requested resource as-is.
-} else {
-    echo "<p>Welcome to PHP</p>";
-}
 
-include 'views/base-html.php';
-/**
- * Rendering function
- *
- * @param Request $request
- * @return Response
- */
-function render_template(Request $request)
-{
-    extract($request->attributes->all(), EXTR_SKIP);
+$routes = include __DIR__.'/routes.php';
+$request = Request::createFromGlobals();
+
+$context = new RequestContext();
+$context->fromRequest($request);
+$matcher = new UrlMatcher($routes, $context);
+
+try {
+    extract($matcher->match($request->getPathInfo()), EXTR_SKIP);
     ob_start();
-    include sprintf(__DIR__ . '/views/%s.php', $_route);
+    include sprintf(__DIR__.'/views/%s.php', $_route);
 
-    return new Response(ob_get_clean());
+    $response = new Response(ob_get_clean());
+} catch (ResourceNotFoundException $exception) {
+    $response = new Response('Not Found', 404);
+} catch (Exception $exception) {
+    $response = new Response('An error occurred', 500);
 }
+
+$response->send();
+
+
+
+
+
+
