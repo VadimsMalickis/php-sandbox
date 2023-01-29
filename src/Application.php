@@ -18,9 +18,11 @@ class Application
      * @param Request $request
      * @return Response
      */
-    public static function renderTemplate($templateFile, Request $request): Response
+    public static function renderTemplate($templateFile, array $arguments = []): Response
     {
-        extract($request->attributes->all(), EXTR_SKIP);
+        if (!(empty($arguments))) {
+            extract($arguments, EXTR_SKIP);
+        }
 
         ob_start();
         require sprintf(__DIR__ . '/../views/%s', $templateFile);

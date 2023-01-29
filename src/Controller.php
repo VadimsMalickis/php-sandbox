@@ -11,4 +11,12 @@ class Controller {
     {
         return Application::renderTemplate('home.php');
     }
+
+    public function contactAction(Request $request, $username): Response {
+        return Application::renderTemplate('contact.php', [
+            'username' => $username
+        ]);
+    }
+
+
 }

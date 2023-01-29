@@ -4,6 +4,7 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Controller\ArgumentResolver;
 use Symfony\Component\HttpKernel\Controller\ControllerResolver;
 use Symfony\Component\Routing\Matcher\UrlMatcher;
@@ -24,8 +25,13 @@ $argumentResolver = new ArgumentResolver();
 
 $request->attributes->add($matcher->match($request->getPathInfo()));
 
-$controller = $controllerResolver->getController($request);
-$arguments = $argumentResolver->getArguments($request, $controller);
 
-$response = call_user_func_array($controller, $arguments);
+$controller = $controllerResolver->getController($request);
+if (!is_callable($controller)) {
+    exit('Bad route!');
+} else {
+    $arguments = $argumentResolver->getArguments($request, $controller);
+    $response = call_user_func_array($controller, $arguments);
+}
+
 $response->send();
