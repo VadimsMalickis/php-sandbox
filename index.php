@@ -12,8 +12,8 @@ $routes = include __DIR__.'/routes.php';
 $request = Request::createFromGlobals();
 
 $app = new Application($routes);
-$templateEngine = new Environment(new FilesystemLoader(__DIR__.'/views'));
-Application::withTemplateEngine($templateEngine);
+$twig = new Environment(new FilesystemLoader(__DIR__.'/views'));
+Application::withTemplateEngine($twig);
 $response = $app->handleRequest($request);
 
 $response->send();

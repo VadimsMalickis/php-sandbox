@@ -14,7 +14,7 @@ use Twig\Environment;
 class Application
 {
 
-    private static  Environment $templateEngine;
+    private static  Environment $twig;
 
     private RouteCollection $routeCollection;
 
@@ -43,11 +43,11 @@ class Application
         }
     }
 
-    public static function withTemplateEngine($templateEngine): void {
-        self::$templateEngine = $templateEngine;
+    public static function withTemplateEngine(Environment $twig): void {
+        self::$twig = $twig;
     }
     public static function render(string $templateName, array $arguments = []): Response
     {
-        return new Response(self::$templateEngine->render($templateName, $arguments));
+        return new Response(self::$twig->render($templateName, $arguments));
     }
 }
