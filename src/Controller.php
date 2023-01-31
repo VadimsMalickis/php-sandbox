@@ -13,9 +13,15 @@ class Controller {
     }
 
     public function contactAction(Request $request, $username): Response {
+
         return Application::renderTemplate('contact.php', [
             'username' => $username
         ]);
+    }
+
+    public function workAction(Type $var = null)
+    {
+        return Application::renderTemplate('work.php');
     }
 
 

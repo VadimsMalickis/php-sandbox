@@ -1,26 +1,7 @@
 {
-    "name": "vadims.malickis/sandbox",
-    "description": "test project",
-    "type": "project",
-    "authors": [
-        {
-            "name": "VadimsMalickis",
-            "email": "vadims.malickis@rvt.lv"
-        }
-    ],
-    "minimum-stability": "dev",
-    "autoload": {
-        "psr-4": {
-            "App\\": "src/"
-        }
-    },
-    "require-dev": {
-        "roave/security-advisories": "dev-latest"
-    },
     "require": {
-        "php" : ">=7.4",
-        "symfony/routing": "6.3.x-dev",
-        "symfony/http-foundation": "*",
-        "symfony/http-kernel": "6.3.x-dev"
+        "symfony/routing": "^5.4",
+        "symfony/http-foundation": "^5.4",
+        "symfony/http-kernel": "^5.4"
     }
 }
