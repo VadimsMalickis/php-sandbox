@@ -9,20 +9,14 @@ class Controller {
 
     public function homeAction(Request $request): Response
     {
-        return Application::renderTemplate('home.php');
+        return Application::render('home.html');
     }
 
     public function contactAction(Request $request, $username): Response {
 
-        return Application::renderTemplate('contact.php', [
+        return Application::render('contact.html', [
             'username' => $username
         ]);
     }
-
-    public function workAction(Type $var = null)
-    {
-        return Application::renderTemplate('work.php');
-    }
-
 
 }
