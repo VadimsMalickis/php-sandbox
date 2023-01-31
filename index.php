@@ -9,11 +9,26 @@ use Symfony\Component\HttpKernel\Controller\ArgumentResolver;
 use Symfony\Component\HttpKernel\Controller\ControllerResolver;
 use Symfony\Component\Routing\Matcher\UrlMatcher;
 use Symfony\Component\Routing\RequestContext;
+use Twig\Loader\FilesystemLoader;
+use Twig\Environment;
 
 require_once __DIR__ .  "/vendor/autoload.php";
 
 $routes = include __DIR__.'/routes.php';
 $request = Request::createFromGlobals();
+
+// Specify our Twig templates location
+$loader = new FilesystemLoader(__DIR__.'/views');
+$twig = new Environment($loader);
+
+
+// This thing works
+// todo - replace custom rendering with twig 
+//
+// $name = 'vadims';
+
+// echo $twig->render('twig.html', ['name' => $name]);
+// exit();
 
 
 $context = new RequestContext();
