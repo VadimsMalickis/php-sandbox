@@ -34,7 +34,8 @@
                 "-dxdebug.start_with_request=yes",
                 "-S",
                 "localhost:0",
-                "index.php"
+                "-t",
+                "public/"
             ],
             "program": "",
             "cwd": "${workspaceRoot}",
