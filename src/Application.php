@@ -43,7 +43,7 @@ class Application
         }
     }
 
-    public static function withTemplateEngine(Environment $twig): void {
+    public static function setTemplateEngine(Environment $twig): void {
         self::$twig = $twig;
     }
     public static function render(string $templateName, array $arguments = []): Response
