@@ -18,9 +18,12 @@ class Application
 
     private RouteCollection $routeCollection;
 
+    private static Container $container;
+
     public function __construct(RouteCollection $routeCollection)
     {
         $this->routeCollection = $routeCollection;
+        static::$container = new Container();
     }
 
     public function handleRequest(Request $request): Response
