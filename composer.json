@@ -7,7 +7,9 @@
         "symfony/asset": "^6.2",
         "symfony/twig-bridge": "*",
         "symfony/dependency-injection": "^6.2",
-        "psr/container": "^2.0"
+        "psr/container": "^2.0",
+        "symfony/error-handler": "^6.2",
+        "symfony/twig-bundle": "*"
     },
     "autoload": {
         "psr-4": {
