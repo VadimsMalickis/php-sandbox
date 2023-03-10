@@ -2,6 +2,8 @@
 
 namespace App;
 
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Controller\ArgumentResolver;
@@ -10,20 +12,18 @@ use Symfony\Component\Routing\Matcher\UrlMatcher;
 use Symfony\Component\Routing\RequestContext;
 use Symfony\Component\Routing\RouteCollection;
 use Twig\Environment;
+use Twig\Loader\FilesystemLoader;
 
 class Application
 {
-
-    private static  Environment $twig;
+    private ContainerBuilder $containerBuilder;
 
     private RouteCollection $routeCollection;
 
-    private static Container $container;
-
-    public function __construct(RouteCollection $routeCollection)
+    public function __construct(RouteCollection $routes)
     {
-        $this->routeCollection = $routeCollection;
-        static::$container = new Container();
+        $this->buildContainer();
+        $this->routeCollection = $routes;
     }
 
     public function handleRequest(Request $request): Response
@@ -46,11 +46,20 @@ class Application
         }
     }
 
-    public static function setTemplateEngine(Environment $twig): void {
-        self::$twig = $twig;
-    }
-    public static function render(string $templateName, array $arguments = []): Response
+    private function buildContainer(): void
     {
-        return new Response(self::$twig->render($templateName, $arguments));
+        $containerBuilder = new ContainerBuilder();
+        $containerBuilder->register('twig_file_loader', FilesystemLoader::class)
+            ->addArgument(__DIR__ . '/../views')
+        ;
+        $containerBuilder->register('twig', Environment::class)
+            ->addArgument(new Reference('twig_file_loader'))
+        ;
+        $containerBuilder
+            ->register(Controller::class, Controller::class)
+            ->setProperty('container', new Reference('service_container'));
+        ;
+        $this->containerBuilder = $containerBuilder;
+
     }
 }

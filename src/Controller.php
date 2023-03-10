@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class Controller
 {
+    private $container;
 
     public function homeAction(Request $request): Response
     {
@@ -16,14 +17,21 @@ class Controller
         ];
 
 
-        return Application::render('home.html');
+        return $this->render('home.html');
     }
 
     public function contactAction(Request $request, $username): Response
     {
 
-        return Application::render('contact.html', [
-            'username' => $username
-        ]);
+//        return Application::render('contact.html', [
+//            'username' => $username
+//        ]);
+    }
+
+    private function render(string $templateName, array $arguments = []): Response
+    {
+        return new Response(
+            $this->container->get('twig')->render($templateName, $arguments)
+        );
     }
 }
