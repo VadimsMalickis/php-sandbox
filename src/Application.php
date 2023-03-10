@@ -3,11 +3,12 @@
 namespace App;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Controller\ArgumentResolver;
-use Symfony\Component\HttpKernel\Controller\ControllerResolver;
+use Symfony\Component\HttpKernel\Controller\ContainerControllerResolver;
 use Symfony\Component\Routing\Matcher\UrlMatcher;
 use Symfony\Component\Routing\RequestContext;
 use Symfony\Component\Routing\RouteCollection;
@@ -16,13 +17,13 @@ use Twig\Loader\FilesystemLoader;
 
 class Application
 {
-    private ContainerBuilder $containerBuilder;
+    private ContainerBuilder $container;
 
     private RouteCollection $routeCollection;
 
     public function __construct(RouteCollection $routes)
     {
-        $this->buildContainer();
+        $this->container = $this->buildContainer();
         $this->routeCollection = $routes;
     }
 
@@ -32,7 +33,7 @@ class Application
         $context->fromRequest($request);
         $matcher = new UrlMatcher($this->routeCollection, $context);
 
-        $controllerResolver = new ControllerResolver();
+        $controllerResolver = new ContainerControllerResolver($this->container);
         $argumentResolver = new ArgumentResolver();
 
         $request->attributes->add($matcher->match($request->getPathInfo()));
@@ -46,20 +47,15 @@ class Application
         }
     }
 
-    private function buildContainer(): void
+    private function buildContainer()
     {
-        $containerBuilder = new ContainerBuilder();
-        $containerBuilder->register('twig_file_loader', FilesystemLoader::class)
-            ->addArgument(__DIR__ . '/../views')
-        ;
-        $containerBuilder->register('twig', Environment::class)
-            ->addArgument(new Reference('twig_file_loader'))
-        ;
-        $containerBuilder
-            ->register(Controller::class, Controller::class)
-            ->setProperty('container', new Reference('service_container'));
-        ;
-        $this->containerBuilder = $containerBuilder;
+        $container = new ContainerBuilder();
 
+        $container->register('twig_file_loader', FilesystemLoader::class)
+            ->addArgument(__DIR__ . '/../views');
+        $container->register('twig', Environment::class)
+            ->addArgument(new Reference('twig_file_loader'));
+
+        return $container;
     }
 }

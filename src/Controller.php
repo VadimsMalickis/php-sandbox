@@ -2,13 +2,12 @@
 
 namespace App;
 
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class Controller
 {
-    private $container;
-
     public function homeAction(Request $request): Response
     {
         $productCategory = [
