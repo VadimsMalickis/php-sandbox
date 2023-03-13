@@ -2,12 +2,14 @@
 
 namespace App;
 
-use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Psr\Container\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class Controller
 {
+    public ?ContainerInterface $container;
+
     public function homeAction(Request $request): Response
     {
         $productCategory = [
@@ -32,5 +34,10 @@ class Controller
         return new Response(
             $this->container->get('twig')->render($templateName, $arguments)
         );
+    }
+
+    public function setContainer(ContainerInterface $container): void
+    {
+        $this->container = $container;
     }
 }

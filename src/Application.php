@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Controller\ArgumentResolver;
 use Symfony\Component\HttpKernel\Controller\ContainerControllerResolver;
+use Symfony\Component\HttpKernel\Controller\ControllerResolver;
 use Symfony\Component\Routing\Matcher\UrlMatcher;
 use Symfony\Component\Routing\RequestContext;
 use Symfony\Component\Routing\RouteCollection;
@@ -24,6 +25,7 @@ class Application
     public function __construct(RouteCollection $routes)
     {
         $this->container = $this->buildContainer();
+
         $this->routeCollection = $routes;
     }
 
@@ -32,13 +34,15 @@ class Application
         $context = new RequestContext();
         $context->fromRequest($request);
         $matcher = new UrlMatcher($this->routeCollection, $context);
-
-        $controllerResolver = new ContainerControllerResolver($this->container);
+        $controllerResolver = new ControllerResolver();
         $argumentResolver = new ArgumentResolver();
 
         $request->attributes->add($matcher->match($request->getPathInfo()));
 
         $controller = $controllerResolver->getController($request);
+
+        $controller[0]->setContainer($this->container);
+
         if (!is_callable($controller)) {
             return new Response('Bad Request', 500);
         } else {
@@ -58,4 +62,5 @@ class Application
 
         return $container;
     }
+
 }
