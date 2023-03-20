@@ -9,9 +9,6 @@ class EventDispatcher
     /** @var array  */
     private array $observers = [];
 
-    /**
-     *
-     */
     public function __construct()
     {
         $this->observers['*'] = [];
