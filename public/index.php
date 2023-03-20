@@ -1,7 +1,8 @@
 <?php
 
+declare(strict_types=1);
 
-use App\Application;
+
 use Symfony\Component\ErrorHandler\Debug;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -11,6 +12,12 @@ Debug::enable();
 $routes = include __DIR__ . '/../routes.php';
 $request = Request::createFromGlobals();
 
-$app = new Application($routes);
-$response = $app->handleRequest($request);
-$response->send();
+
+
+
+
+
+
+//$app = new Application($routes);
+//$response = $app->handleRequest($request);
+//$response->send();
