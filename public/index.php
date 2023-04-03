@@ -12,6 +12,8 @@ Debug::enable();
 
 $routes = include __DIR__ . '/../routes.php';
 $request = Request::createFromGlobals();
+session_start();
+
 
 
 $app = new Application($routes);

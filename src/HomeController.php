@@ -6,12 +6,15 @@ use App\Core\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class Controller extends AbstractController
+class HomeController extends AbstractController
 {
 //    public ContainerInterface $container;
 
     public function homeAction(Request $request): Response
     {
+
+
+
         return $this->render('home.html');
     }
 
