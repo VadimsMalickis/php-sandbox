@@ -1,1 +1,38 @@
-<h1>My Blog Page!</h1>
+{% extends 'base-template.html' %}
+
+{% block body %}
+<div class="container">
+    <h1>Blog</h1>
+    <h1>My Book list!</h1>
+    <form id="book-form">
+        <div class="mb-3">
+            <label for="title" class="form-label">Title</label>
+            <input id="title" type="text" class="form-control" name="title">
+            <div class="form-text">Book title name.</div>
+        </div>
+        <div class="mb-3">
+            <label for="author" class="form-label">Author</label>
+            <input id="author" type="text" class="form-control">
+            <div id="emailHelp" class="form-text">Author's name.</div>
+        </div>
+        <div class="mb-3">
+            <label for="isbn" class="form-label">ISBN</label>
+            <input id="isbn" type="password" class="form-control">
+        </div>
+        <input type="submit" class="btn btn-primary btn-lg btn-block" value="Submit">
+    </form>
+
+    <table class="table table-striped mt-5">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Author</th>
+                <th>ISBN#</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody id="book-list"></tbody>
+    </table>
+</div>
+
+{% endblock %}
