@@ -11,7 +11,7 @@ class BlogController extends AbstractController
 {
     public function indexAction(): Response
     {
-        $blogMsg = 'Thisistheb logpage';
+    
 
 
         // validate $blogMsg to match only letters
